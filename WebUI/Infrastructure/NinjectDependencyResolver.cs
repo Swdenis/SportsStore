@@ -20,6 +20,16 @@ namespace WebUI.Infrastructure
             AddBindings();
         }
 
+        public object GetService(Type serviceType)
+        {
+            return kernel.TryGet(serviceType);
+        }
+
+        public IEnumerable<object> GetServices(Type serviceType)
+        {
+            return kernel.GetAll(serviceType);
+        }
+
         private void AddBindings()
         {
             Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
@@ -30,5 +40,7 @@ namespace WebUI.Infrastructure
                 });
             kernel.Bind<IProductsRepository>().ToConstant(mock.Object);
         }
+
+        
     }
 }
